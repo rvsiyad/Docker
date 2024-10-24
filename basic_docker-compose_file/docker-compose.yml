@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest # Pulls the latest postgres image
+    container_name: postgres-db
+    environment:
+      # Postgress credentials, these can be renamed
+      POSTGRES_USER: "default_user"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "default_db"
+    ports:
+      # Maps the docker image port to the local machine port
+      - "5432:5432"
+    volumes:
+      # Persists PostgreSQL data by storing it in a Docker volume, ensuring data is not lost when the container is stopped or restarted
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+    # Uses local storage for the volume to persist data outside the container
+    driver: local
+
+# Start the docker container by using the command `docker-compose up -d`
+# Stop the docker container by using the command `docker-compose down`
+# Check the docker postgres image is running using `docker ps` which shows the docker containers running on the machine
